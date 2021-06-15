@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as types from '../constants/actionTypes';
 
 export const login = () => ({
@@ -33,3 +34,11 @@ export const passProgress = (data) => ({
   type: types.PASS_PROGRESS,
   data,
 });
+
+export const handleLogout = () => (dispatch) => {
+  axios.delete('http://localhost/api/v1/logout', { withCredentials: true })
+  .then(() => {
+    dispatch(logout());
+    dispatch(resetData());
+  })
+}
