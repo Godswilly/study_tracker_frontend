@@ -1,3 +1,5 @@
+import * as types from '../constants/actionTypes';
+
 export const login = () => ({
   type: types.LOGIN,
 });
@@ -8,7 +10,7 @@ export const updateData = (name, data) => ({
   data,
 });
 
-export const passStudy = data => ({
+export const passStudy = (data) => ({
   type: types.PASS_STUDIES,
   data,
 });
@@ -27,7 +29,7 @@ export const createStudy = (name, data) => ({
   data,
 });
 
-export const passProgress = data => ({
+export const passProgress = (data) => ({
   type: types.PASS_PROGRESS,
   data,
 });
