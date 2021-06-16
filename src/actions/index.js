@@ -81,3 +81,10 @@ export const submitLogin = (user, history) => (dispatch) => {
     }
   });
 };
+
+export const checkLogin = (status, user, history) => (dispatch) => {
+  if (status === 'NOT_LOGGED_IN') {
+    history.push('/');
+  }
+  dispatch(createStudy('userId', user.userId));
+};
