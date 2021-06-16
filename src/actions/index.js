@@ -124,3 +124,12 @@ export const submitEdit = (history, study, id) => {
     }
   });
 };
+
+export const deleteStudy = (id, history) => {
+  axios.delete(`http://localhost:3000/api/v1/destroy/${id}`, { withCredentials: true })
+    .then((response) => {
+      if (response.statusText === 'OK') {
+        history.push('/studies');
+      }
+    });
+}
