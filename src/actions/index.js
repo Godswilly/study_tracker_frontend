@@ -149,3 +149,15 @@ export const fetchStudy = (status, history, id) => (dispatch) => {
       }
     });
 };
+
+export const fetchStudies = (status, history) => (dispatch) => {
+  if (status === 'NOT_LOGGED_IN') {
+    history.push('/');
+  }
+  axios.get('http://localhost:3000/api/v1/studies/index', { withCredentials: true })
+    .then((response) => {
+      if (response.statusText === 'OK') {
+        dispatch(feedStudies(response.data));
+      }
+    });
+};
