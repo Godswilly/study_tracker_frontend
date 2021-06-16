@@ -106,3 +106,21 @@ export const submitNew = (history, study) => {
     }
   });
 };
+
+export const submitEdit = (history, study, id) => {
+  axios.put(`http://localhost:3000/api/v1/update/${id}`, {
+    study: {
+      name: study.name,
+      hours: study.hours,
+      hours_goal: study.hoursGoal,
+      projects: study.projects,
+      projects_goal: study.projectsGoal,
+      user_id: study.userId,
+    },
+  },
+  { withCredentials: true }).then((response) => {
+    if (response.data.status === 'created') {
+      history.push(`/study/${id}`);
+    }
+  });
+};
