@@ -56,6 +56,19 @@ export const handleLoginStatus = (status) => (dispatch) => {
   })
 };
 
+export const submitSignup = (history, user) => (dispatch) => {
+  axios.post('http://localhost:3000/api/v1/registrations', { user: { name: user.name, email: user.email, password: user.password, password_confirmation: user.passwordConfirmation } },
+    { withCredentials: true }).then((response) => {
+    if (response.data.status === 'created') {
+      dispatch(login());
+      dispatch(updateData('userId', response.data.user.id));
+      history.push('/');
+    } else {
+      dispatch(updateData('registrationErrors', response.data.errors.join('; ')));
+    }
+  });
+};
+
 export const submitLogin = (user, history) => (dispatch) => {
   axios.post('http://localhost:3000/api/v1/sessions', { user },
     { withCredentials: true }).then((response) => {
