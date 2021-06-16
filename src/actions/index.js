@@ -133,3 +133,19 @@ export const deleteStudy = (id, history) => {
       }
     });
 }
+
+export const fetchStudy = (status, history, id) => (dispatch) => {
+  if (status === 'NOT_LOGGED_IN') {
+    history.push('/');
+  }
+  axios.get(`http://localhost:3000/api/v1/show/${id}`, { withCredentials: true })
+    .then((response) => {
+      if (response.statusText === 'OK') {
+        dispatch(createStudy('name', response.data.name));
+        dispatch(createStudy('hours', response.data.hours));
+        dispatch(createStudy('hoursGoal', response.data.hours_goal));
+        dispatch(createStudy('projects', response.data.projects));
+        dispatch(createStudy('projectsGoal', response.data.projects_goal));
+      }
+    });
+};
