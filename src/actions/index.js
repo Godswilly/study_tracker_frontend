@@ -45,7 +45,7 @@ export const handleLogout = () => (dispatch) => {
 
 export const handleLoginStatus = (status) => (dispatch) => {
   axios.get('http://localhost/api/v1/logged_in', { withCredentials:true })
-  .then(response => {
+  .then((response) => {
     if(response.data.logged_in && status === 'NOT_LOGGED_IN') {
       dispatch(login());
       dispatch(updateData('email', response.data.user.email));
@@ -54,4 +54,17 @@ export const handleLoginStatus = (status) => (dispatch) => {
         dispatch(resetData()); 
       }
   })
+};
+
+export const submitLogin = (user, history) => (dispatch) => {
+  axios.post('http://localhost:3000/api/v1/sessions', { user },
+    { withCredentials: true }).then((response) => {
+    if (response.data.logged_in) {
+      dispatch(login());
+      dispatch(updateData('userId', response.data.user.id));
+      history.push('/');
+    } else {
+      dispatch(updateData('loginErrors', 'Wrong e-mail or password'));
+    }
+  });
 };
