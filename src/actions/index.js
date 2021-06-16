@@ -161,3 +161,15 @@ export const fetchStudies = (status, history) => (dispatch) => {
       }
     });
 };
+
+export const fetchProgress = (status, history) => (dispatch) => {
+  if (status === 'NOT_LOGGED_IN') {
+    history.push('/');
+  }
+  axios.get('http://localhost:3000/api/v1/studies/progress', { withCredentials: true })
+    .then((response) => {
+      if (response.statusText === 'OK') {
+        dispatch(feedProgress(response.data.progress));
+      }
+    });
+};
