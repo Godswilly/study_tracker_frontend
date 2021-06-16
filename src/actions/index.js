@@ -88,3 +88,21 @@ export const checkLogin = (status, user, history) => (dispatch) => {
   }
   dispatch(createStudy('userId', user.userId));
 };
+
+export const submitNew = (history, study) => {
+  axios.post('http://localhost:3000/api/v1/studies/create', {
+    study: {
+      name: study.name,
+      hours: study.hours,
+      hours_goal: study.hoursGoal,
+      projects: study.projects,
+      projects_goal: study.projectsGoal,
+      user_id: study.userId,
+    },
+  },
+  { withCredentials: true }).then((response) => {
+    if (response.data.status === 'created') {
+      history.push(`/study/${response.data.study.id}`);
+    }
+  });
+};
