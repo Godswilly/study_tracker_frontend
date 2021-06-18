@@ -135,3 +135,50 @@ const EditStudy = ({
     </div>
   );
 };
+
+EditStudy.propTypes = {
+  study: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    hours: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    hoursGoal: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    projects: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    projectsGoal: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    createErrors: PropTypes.string.isRequired,
+  }).isRequired,
+  createStudy: PropTypes.func.isRequired,
+  checkLogin: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  study: state.study,
+  status: state.status,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  createStudy: (name, data) => dispatch(createStudy(name, data)),
+  checkLogin: (status, user, history) => dispatch(checkLogin(status, user, history)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditStudy);
