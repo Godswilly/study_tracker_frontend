@@ -113,3 +113,43 @@ const Study = ({
     </div>
   );
 };
+
+Study.propTypes = {
+  status: PropTypes.string.isRequired,
+  fetchStudy: PropTypes.func.isRequired,
+  study: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    hours: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    hoursGoal: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    projects: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    projectsGoal: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  status: state.status,
+  study: state.study,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchStudy: (status, history, id) => dispatch(fetchStudy(status, history, id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Study);
