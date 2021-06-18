@@ -22,7 +22,7 @@ const Study = ({
     return percentage >= 100 ? 100 : Math.round(percentage);
   };
 
-  const handleDelete = e => {
+  const handleDelete = (e) => {
     e.preventDefault();
     deleteStudy(id, history);
   };

@@ -14,11 +14,11 @@ const NewStudy = ({
     checkLogin(status, user, history);
   }, []);
 
-  const createDataChange = useCallback(e => {
+  const createDataChange = useCallback((e) => {
     createStudy(e.target.name, e.target.value);
   }, [createStudy]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     submitNew(history, study);
   };
