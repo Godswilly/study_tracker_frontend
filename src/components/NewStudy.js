@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStudy, checkLogin, submitNew } from '../actions/index';
 import Footer from '../containers/Footer';
+import '../assets/index.css';
 
 const NewStudy = ({
   study, createStudy, status, user, checkLogin,

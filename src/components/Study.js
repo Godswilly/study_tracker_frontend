@@ -7,6 +7,7 @@ import { fetchStudy, deleteStudy } from '../actions/index';
 import Footer from '../containers/Footer';
 import projectsImg from '../assets/images/projects.png';
 import hoursImg from '../assets/images/hours.png';
+import '../assets/index.css';
 
 const Study = ({
   status, match, study, fetchStudy,

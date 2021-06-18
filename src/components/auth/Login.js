@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { submitLogin, updateData } from '../actions/index';
+import '../../assets/index.css';
 
 const Login = ({ user, updateData, submitLogin }) => {
   const history = useHistory();

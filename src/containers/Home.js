@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { handleLoginStatus, handleLogout } from '../actions/index';
 import logoutIcon from '../assets/images/logout.png';
 import Footer from './Footer';
+import '../assets/index.css';
 
 const Home = ({
   user, status, handleLoginStatus, handleLogout

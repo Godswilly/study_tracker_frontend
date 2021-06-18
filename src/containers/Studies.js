@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { fetchStudies } from '../actions/index';
 import Footer from './Footer';
+import '../assets/index.css';
 
 const Studies = ({ studies, fetchStudies, status }) => {
   const history = useHistory();

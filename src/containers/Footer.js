@@ -4,6 +4,7 @@ import home from '../assets/images/home.png';
 import progress from '../assets/images/progress.png';
 import studyImg from '../assets/images/add-study.png';
 import trackIt from '../assets/images/track-it.png';
+import '../assets/index.css';
 
 const Footer = () => (
 
