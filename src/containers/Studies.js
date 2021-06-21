@@ -84,7 +84,6 @@ const Studies = ({ studies, fetchStudies, status }) => {
   );
 };
 
-
 Studies.propTypes = {
   fetchStudies: PropTypes.func.isRequired,
   studies: PropTypes.instanceOf(Array).isRequired,

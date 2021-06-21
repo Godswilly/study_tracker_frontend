@@ -12,17 +12,17 @@ import Progress from '../containers/Progress';
 function App() {
   return (
     <Router>
-    <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/signup" exact component={Registration} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/studies" exact component={Studies} />
-      <Route path="/study/:id" exact component={Study} />
-      <Route path="/study" exact component={NewStudy} />
-      <Route path="/edit/:id" exact component={EditStudy} />
-      <Route path="/progress" exact component={Progress} />
-    </Switch>
-  </Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/signup" exact component={Registration} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/studies" exact component={Studies} />
+        <Route path="/study/:id" exact component={Study} />
+        <Route path="/study" exact component={NewStudy} />
+        <Route path="/edit/:id" exact component={EditStudy} />
+        <Route path="/progress" exact component={Progress} />
+      </Switch>
+    </Router>
   );
 }
 

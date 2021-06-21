@@ -11,7 +11,7 @@ export const updateData = (name, data) => ({
   data,
 });
 
-export const passStudy = (data) => ({
+export const passStudies = (data) => ({
   type: types.PASS_STUDIES,
   data,
 });
@@ -37,27 +37,36 @@ export const passProgress = (data) => ({
 
 export const handleLogout = () => (dispatch) => {
   axios.delete('http://localhost/api/v1/logout', { withCredentials: true })
-  .then(() => {
-    dispatch(logout());
-    dispatch(resetData());
-  })
-}
+    .then(() => {
+      dispatch(logout());
+      dispatch(resetData());
+    });
+};
 
 export const handleLoginStatus = (status) => (dispatch) => {
-  axios.get('http://localhost/api/v1/logged_in', { withCredentials:true })
-  .then((response) => {
-    if(response.data.logged_in && status === 'NOT_LOGGED_IN') {
-      dispatch(login());
-      dispatch(updateData('email', response.data.user.email));
-    } else if (!response.data.logged_in && status === 'LOGGED_IN') {
+  axios.get('http://localhost/api/v1/logged_in', { withCredentials: true })
+    .then((response) => {
+      if (response.data.logged_in && status === 'NOT_LOGGED_IN') {
+        dispatch(login());
+        dispatch(updateData('email', response.data.user.email));
+      } else if (!response.data.logged_in && status === 'LOGGED_IN') {
         dispatch(logout());
-        dispatch(resetData()); 
+        dispatch(resetData());
       }
-  })
+    });
 };
 
 export const submitSignup = (history, user) => (dispatch) => {
-  axios.post('http://localhost:3000/api/v1/registrations', { user: { name: user.name, email: user.email, password: user.password, password_confirmation: user.passwordConfirmation } },
+  axios.post('http://localhost:3000/api/v1/registrations',
+    {
+      user:
+      {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        password_confirmation: user.passwordConfirmation,
+      },
+    },
     { withCredentials: true }).then((response) => {
     if (response.data.status === 'created') {
       dispatch(login());
@@ -132,7 +141,7 @@ export const deleteStudy = (id, history) => {
         history.push('/studies');
       }
     });
-}
+};
 
 export const fetchStudy = (status, history, id) => (dispatch) => {
   if (status === 'NOT_LOGGED_IN') {
@@ -157,7 +166,7 @@ export const fetchStudies = (status, history) => (dispatch) => {
   axios.get('http://localhost:3000/api/v1/studies/index', { withCredentials: true })
     .then((response) => {
       if (response.statusText === 'OK') {
-        dispatch(feedStudies(response.data));
+        dispatch(passStudies(response.data));
       }
     });
 };
@@ -169,7 +178,7 @@ export const fetchProgress = (status, history) => (dispatch) => {
   axios.get('http://localhost:3000/api/v1/studies/progress', { withCredentials: true })
     .then((response) => {
       if (response.statusText === 'OK') {
-        dispatch(feedProgress(response.data.progress));
+        dispatch(passProgress(response.data.progress));
       }
     });
 };

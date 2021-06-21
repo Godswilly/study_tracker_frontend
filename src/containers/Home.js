@@ -8,13 +8,13 @@ import Footer from './Footer';
 import '../assets/index.css';
 
 const Home = ({
-  user, status, handleLoginStatus, handleLogout
+  user, status, handleLoginStatus, handleLogout,
 }) => {
   useEffect(() => {
     handleLoginStatus(status);
-  }, [handleLoginStatus])
+  }, [handleLoginStatus]);
 
-  eturn (
+  return (
     <div className="h-100">
       {
         status === 'NOT_LOGGED_IN'
@@ -56,7 +56,7 @@ const Home = ({
   );
 };
 
-ome.propTypes = {
+Home.propTypes = {
   status: PropTypes.string.isRequired,
   handleLoginStatus: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,

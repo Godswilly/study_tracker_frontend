@@ -2,9 +2,8 @@ import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { updateData, submitSignup } from '../actions/index';
+import { updateData, submitSignup } from '../../actions/index';
 import '../../assets/index.css';
-
 
 const Registration = ({ user, updateData, submitSignup }) => {
   const history = useHistory();

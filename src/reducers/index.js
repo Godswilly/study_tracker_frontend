@@ -5,7 +5,7 @@ import studies from './studies';
 import study from './study';
 import user from './user';
 
-export default combineReducers ({
+export default combineReducers({
   progress,
   status,
   studies,
