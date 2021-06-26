@@ -3,7 +3,7 @@ import * as types from '../../constants/actionTypes';
 
 describe('user reducer', () => {
   const initialState = {
-    email: '', password: '', passwordConfirmation: '', registrationErrors: '', loginErrors: '', userId: 1,
+    name: '', email: '', password: '', passwordConfirmation: '', registrationErrors: '', loginErrors: '', userId: 1,
   };
   test('should return the initial state', () => {
     expect(user(undefined, {})).toEqual(initialState);
