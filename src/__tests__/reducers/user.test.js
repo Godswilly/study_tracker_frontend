@@ -1,4 +1,4 @@
-import user from '../reducers/user';
+import user from '../../reducers/user';
 import * as types from '../../constants/actionTypes';
 
 describe('user reducer', () => {

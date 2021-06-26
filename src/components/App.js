@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from '../containers/Home';
-import Registration from './auth/Registration';
 import Login from './auth/Login';
 import Studies from '../containers/Studies';
 import Study from './Study';
 import NewStudy from './NewStudy';
 import EditStudy from './EditStudy';
 import Progress from '../containers/Progress';
+import Registration from './auth/Registration';
 
 function App() {
   return (

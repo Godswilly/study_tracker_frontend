@@ -23,6 +23,21 @@ const Registration = ({ user, updateData, submitSignup }) => {
         <div>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
+              <label htmlFor="name">
+                Name
+                <input
+                  type="name"
+                  name="name"
+                  id="name"
+                  placeholder="Name"
+                  className="form-control"
+                  autoComplete="name"
+                  required
+                  onChange={updateDataChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
               <label htmlFor="email">
                 Email
                 <input
@@ -88,6 +103,7 @@ const Registration = ({ user, updateData, submitSignup }) => {
 
 Registration.propTypes = {
   user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     passwordConfirmation: PropTypes.string.isRequired,
