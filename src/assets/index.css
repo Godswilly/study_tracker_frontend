@@ -31,10 +31,10 @@ body {
 }
 
 .custom-button {
-  background-color: #313944 !important;
-  color: #acafb4 !important;
+  background-color: #395d8f !important;
+  color: #777f8b !important;
   border-radius: 0 !important;
-  border: 0.1rem solid #acafb470 !important;
+  border: 0.1rem solid #8798b670 !important;
   font-size: 1.5rem !important;
 }
 
@@ -135,7 +135,7 @@ body {
 }
 
 .button-footer {
-  background-color: #313944;
+  background-color: #4e5c70;
   position: fixed;
   bottom: 0;
 }
