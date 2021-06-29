@@ -36,7 +36,7 @@ export const passProgress = (data) => ({
 });
 
 export const handleLogout = () => (dispatch) => {
-  axios.delete('http://localhost:3001/api/v1/logout', { withCredentials: true })
+  axios.delete('https://final-capston.herokuapp.com/api/v1/logout', { withCredentials: true })
     .then(() => {
       dispatch(logout());
       dispatch(resetData());
@@ -44,7 +44,7 @@ export const handleLogout = () => (dispatch) => {
 };
 
 export const handleLoginStatus = (status) => (dispatch) => {
-  axios.get('http://localhost:3001/api/v1/logged_in', { withCredentials: true })
+  axios.get('https://final-capston.herokuapp.com/api/v1/logged_in', { withCredentials: true })
     .then((response) => {
       if (response.data.logged_in && status === 'NOT_LOGGED_IN') {
         dispatch(login());
@@ -57,7 +57,7 @@ export const handleLoginStatus = (status) => (dispatch) => {
 };
 
 export const submitSignup = (history, user) => (dispatch) => {
-  axios.post('http://localhost:3001/api/v1/registrations',
+  axios.post('https://final-capston.herokuapp.com/api/v1/registrations',
     {
       user:
       {
@@ -79,7 +79,7 @@ export const submitSignup = (history, user) => (dispatch) => {
 };
 
 export const submitLogin = (history, user) => (dispatch) => {
-  axios.post('http://localhost:3001/api/v1/sessions', { user },
+  axios.post('https://final-capston.herokuapp.com/api/v1/sessions', { user },
     { withCredentials: true }).then((response) => {
     if (response.data.logged_in) {
       dispatch(login());
@@ -99,7 +99,7 @@ export const checkLogin = (status, user, history) => (dispatch) => {
 };
 
 export const submitNew = (history, study) => {
-  axios.post('http://localhost:3001/api/v1/studies/create', {
+  axios.post('https://final-capston.herokuapp.com/api/v1/studies/create', {
     study: {
       name: study.name,
       hours: study.hours,
@@ -117,7 +117,7 @@ export const submitNew = (history, study) => {
 };
 
 export const submitEdit = (history, study, id) => {
-  axios.put(`http://localhost:3001/api/v1/update/${id}`, {
+  axios.put(`https://final-capston.herokuapp.com/api/v1/update/${id}`, {
     study: {
       name: study.name,
       hours: study.hours,
@@ -135,7 +135,7 @@ export const submitEdit = (history, study, id) => {
 };
 
 export const deleteStudy = (id, history) => {
-  axios.delete(`http://localhost:3001/api/v1/destroy/${id}`, { withCredentials: true })
+  axios.delete(`https://final-capston.herokuapp.com/api/v1/destroy/${id}`, { withCredentials: true })
     .then((response) => {
       if (response.statusText === 'OK') {
         history.push('/studies');
@@ -147,7 +147,7 @@ export const fetchStudy = (status, history, id) => (dispatch) => {
   if (status === 'NOT_LOGGED_IN') {
     history.push('/');
   }
-  axios.get(`http://localhost:3001/api/v1/show/${id}`, { withCredentials: true })
+  axios.get(`https://final-capston.herokuapp.com/api/v1/show/${id}`, { withCredentials: true })
     .then((response) => {
       if (response.statusText === 'OK') {
         dispatch(createStudy('name', response.data.name));
@@ -163,7 +163,7 @@ export const fetchStudies = (status, history) => (dispatch) => {
   if (status === 'NOT_LOGGED_IN') {
     history.push('/');
   }
-  axios.get('http://localhost:3001/api/v1/studies/index', { withCredentials: true })
+  axios.get('https://final-capston.herokuapp.com/api/v1/studies/index', { withCredentials: true })
     .then((response) => {
       if (response.statusText === 'OK') {
         dispatch(passStudies(response.data));
@@ -175,7 +175,7 @@ export const fetchProgress = (status, history) => (dispatch) => {
   if (status === 'NOT_LOGGED_IN') {
     history.push('/');
   }
-  axios.get('http://localhost:3001/api/v1/studies/progress', { withCredentials: true })
+  axios.get('https://final-capston.herokuapp.com/api/v1/studies/progress', { withCredentials: true })
     .then((response) => {
       if (response.statusText === 'OK') {
         dispatch(passProgress(response.data.progress));
