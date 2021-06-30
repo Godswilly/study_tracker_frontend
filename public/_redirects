@@ -1,0 +1,2 @@
+/api/* https://final-capston.herokuapp.com/api/v1/:splat 200
+/* /index.html 200
