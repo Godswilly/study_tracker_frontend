@@ -41,6 +41,7 @@ export const handleLogout = () => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     })
     .then(() => {
@@ -55,6 +56,7 @@ export const handleLoginStatus = (status) => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     })
     .then((response) => {
@@ -84,6 +86,7 @@ export const submitSignup = (history, user) => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     }).then((response) => {
     if (response.data.status === 'created') {
@@ -103,6 +106,7 @@ export const submitLogin = (history, user) => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     }).then((response) => {
     if (response.data.logged_in) {
@@ -138,6 +142,7 @@ export const submitNew = (history, study) => {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
     },
   }).then((response) => {
     if (response.data.status === 'created') {
@@ -162,6 +167,7 @@ export const submitEdit = (history, study, id) => {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
     },
   }).then((response) => {
     if (response.data.status === 'created') {
@@ -176,6 +182,7 @@ export const deleteStudy = (id, history) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     })
     .then((response) => {
@@ -194,6 +201,7 @@ export const fetchStudy = (status, history, id) => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     })
     .then((response) => {
@@ -216,6 +224,7 @@ export const fetchStudies = (status, history) => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     })
     .then((response) => {
@@ -234,6 +243,7 @@ export const fetchProgress = (status, history) => (dispatch) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
     })
     .then((response) => {
