@@ -36,7 +36,13 @@ export const passProgress = (data) => ({
 });
 
 export const handleLogout = () => (dispatch) => {
-  axios.delete('http://localhost:3001/api/v1/logout', { withCredentials: true })
+  axios.delete('http://localhost:3001/api/v1/logout', { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
     .then(() => {
       dispatch(logout());
       dispatch(resetData());
@@ -44,7 +50,13 @@ export const handleLogout = () => (dispatch) => {
 };
 
 export const handleLoginStatus = (status) => (dispatch) => {
-  axios.get('http://localhost:3001/api/v1/logged_in', { withCredentials: true })
+  axios.get('http://localhost:3001/api/v1/logged_in', { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
     .then((response) => {
       if (response.data.logged_in && status === 'NOT_LOGGED_IN') {
         dispatch(login());
@@ -67,7 +79,13 @@ export const submitSignup = (history, user) => (dispatch) => {
         password_confirmation: user.passwordConfirmation,
       },
     },
-    { withCredentials: true }).then((response) => {
+    { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    }).then((response) => {
     if (response.data.status === 'created') {
       dispatch(login());
       dispatch(updateData('userId', response.data.user.id));
@@ -80,7 +98,13 @@ export const submitSignup = (history, user) => (dispatch) => {
 
 export const submitLogin = (history, user) => (dispatch) => {
   axios.post('http://localhost:3001/api/v1/sessions', { user },
-    { withCredentials: true }).then((response) => {
+    { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    }).then((response) => {
     if (response.data.logged_in) {
       dispatch(login());
       dispatch(updateData('userId', response.data.user.id));
@@ -109,7 +133,13 @@ export const submitNew = (history, study) => {
       user_id: study.userId,
     },
   },
-  { withCredentials: true }).then((response) => {
+  { withCredentials: true },
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+  }).then((response) => {
     if (response.data.status === 'created') {
       history.push(`/study/${response.data.study.id}`);
     }
@@ -127,7 +157,13 @@ export const submitEdit = (history, study, id) => {
       user_id: study.userId,
     },
   },
-  { withCredentials: true }).then((response) => {
+  { withCredentials: true },
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+  }).then((response) => {
     if (response.data.status === 'created') {
       history.push(`/study/${id}`);
     }
@@ -135,7 +171,13 @@ export const submitEdit = (history, study, id) => {
 };
 
 export const deleteStudy = (id, history) => {
-  axios.delete(`http://localhost:3001/api/v1/destroy/${id}`, { withCredentials: true })
+  axios.delete(`http://localhost:3001/api/v1/destroy/${id}`, { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
     .then((response) => {
       if (response.statusText === 'OK') {
         history.push('/studies');
@@ -147,7 +189,13 @@ export const fetchStudy = (status, history, id) => (dispatch) => {
   if (status === 'NOT_LOGGED_IN') {
     history.push('/');
   }
-  axios.get(`http://localhost:3001/api/v1/show/${id}`, { withCredentials: true })
+  axios.get(`http://localhost:3001/api/v1/show/${id}`, { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
     .then((response) => {
       if (response.statusText === 'OK') {
         dispatch(createStudy('name', response.data.name));
@@ -163,7 +211,13 @@ export const fetchStudies = (status, history) => (dispatch) => {
   if (status === 'NOT_LOGGED_IN') {
     history.push('/');
   }
-  axios.get('http://localhost:3001/api/v1/studies/index', { withCredentials: true })
+  axios.get('http://localhost:3001/api/v1/studies/index', { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
     .then((response) => {
       if (response.statusText === 'OK') {
         dispatch(passStudies(response.data));
@@ -175,7 +229,13 @@ export const fetchProgress = (status, history) => (dispatch) => {
   if (status === 'NOT_LOGGED_IN') {
     history.push('/');
   }
-  axios.get('http://localhost:3001/api/v1/studies/progress', { withCredentials: true })
+  axios.get('http://localhost:3001/api/v1/studies/progress', { withCredentials: true },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
     .then((response) => {
       if (response.statusText === 'OK') {
         dispatch(passProgress(response.data.progress));
