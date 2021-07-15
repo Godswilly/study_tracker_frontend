@@ -19,7 +19,8 @@ export const signup = (userDetails) => async (dispatch) => {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      // Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify(userDetails),
   };
@@ -45,7 +46,7 @@ export const login = (userDetails) => async (dispatch) => {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
-      // 'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify(userDetails),
   };

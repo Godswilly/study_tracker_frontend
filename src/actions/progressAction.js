@@ -10,6 +10,7 @@ const apiConfig = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Access-Control-Allow-Origin': '*',
   },
 };
 // eslint-disable-next-line consistent-return
