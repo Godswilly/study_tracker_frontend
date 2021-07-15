@@ -1,19 +1,72 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { PieChart } from 'react-minimal-pie-chart';
-import { fetchStudy, deleteStudy } from '../actions/index';
+import styled from 'styled-components';
 import Footer from '../containers/Footer';
-import projectsImg from '../assets/images/projects.png';
-import hoursImg from '../assets/images/hours.png';
-import '../assets/index.css';
+import { getStudy, deleteStudy } from '../actions/studyAction';
+
+const MainWrap = styled.div`
+  width: 100%;
+  height: 471px;
+  background-color: #42a9cf;
+`;
+
+const LoadingWrap = styled.div`
+  height: 450px;
+  width: 100%;
+`;
+
+const DeleteB = styled.button`
+  color: white;
+  background-color: blue;
+  width: 150px;
+  border: none;
+  &:hover {
+    opacity: .6;
+  }
+`;
+
+const DFlex = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 10px;
+  margin-left: 25%;
+
+  @media(max-width: 768px) {
+    margin-left: 0;
+    width:100%;
+  }
+`;
+
+const TextA = styled.p`
+  text-align: center;
+`;
+
+const ChartPos = styled.div`
+  margin-left: 260px;
+  @media(max-width: 768px) {
+    margin-left: 35%;
+  }
+`;
+
+const LinkPos = styled.div`
+  margin-left: 160px;
+  @media(max-width: 768px) {
+    margin-left: 20%;
+  }
+`;
 
 const Study = ({
-  status, match, study, fetchStudy,
+  getStudy, studies, match, deleteStudy, history,
 }) => {
   const { id } = match.params;
-  const history = useHistory();
+  useEffect(() => {
+    getStudy(id);
+  }, [getStudy, id]);
 
   const result = (hours, goal) => {
     if (goal === 0) {
@@ -28,129 +81,58 @@ const Study = ({
     deleteStudy(id, history);
   };
 
-  useEffect(() => {
-    fetchStudy(status, history, id);
-  }, []);
-
-  return (
-    <div className="h-100 d-flex flex-column">
-      <div className="header-title">
-        {study.name}
-      </div>
-      <div>
-        <div className="pie-chart-ctn d-flex justify-content-around align-items-center p-5">
-          <div className="d-flex flex-column align-items-center justify-content-around">
+  return studies ? (
+    <>
+      <MainWrap>
+        <TextA>Study Data</TextA>
+        <DFlex>
+          <ChartPos>
             <PieChart
+              className="cSize"
               data={[{
-                value: 1, color: '#8ce08a', key: `${result(study.hours, study.hoursGoal)} %`,
+                value: 1, color: '#1F3C88', key: `${result(studies.hours, studies.hours_goal)} %`,
               }]}
-              reveal={result(study.hours, study.hoursGoal)}
+              reveal={result(studies.hours, studies.hours_goal)}
               lineWidth={20}
               animate
-              className="pie-chart"
               label={({ dataEntry }) => dataEntry.key}
               labelStyle={{ fontSize: '1.6rem' }}
             />
-            <p className="mt-2">Hours</p>
-          </div>
-          <div className="d-flex flex-column align-items-center justify-content-around">
-            <PieChart
-              data={[{
-                value: 1, color: '#8ce08a', key: `${result(study.projects, study.projectsGoal)} %`,
-              }]}
-              reveal={result(study.projects, study.projectsGoal)}
-              lineWidth={20}
-              animate
-              className="pie-chart"
-              label={({ dataEntry }) => dataEntry.key}
-              labelStyle={{ fontSize: '1.6rem' }}
-            />
-            <p className="mt-2">Projects</p>
-          </div>
-        </div>
-        <div>
-          <div className="d-flex flex-column justify-content-around align-items-center">
-            <div className="mt-3 d-flex justify-content-around align-items-center stats-ctn p-5">
-              <img className="study-img" src={hoursImg} alt="hours" />
-              <div className="text-center ml-1">
-                {study.hours}
-                {' '}
-                /
-                {study.hoursGoal}
-                {' '}
-                hours completed
-              </div>
-            </div>
-            <div className="mt-3 d-flex justify-content-around align-items-center stats-ctn p-5">
-              <img className="study-img" src={projectsImg} alt="projects" />
-              <div className="text-center ml-1">
-                {study.projects}
-                {' '}
-                /
-                {study.projectsGoal}
-                {' '}
-                projects completed
-              </div>
-            </div>
-          </div>
-          <div className="d-flex flex-column justify-content-around align-items-center mt-3 py-10 study-buttons">
-            <Link to="/studies" className="btn btn-lg custom-button mb-3">
-              Back to studies
+          </ChartPos>
+          <LinkPos>
+            <Link to="/studies">
+              Back to Data
             </Link>
             <Link
-              to={`/edit/${id}`}
-              className="btn btn-lg custom-button mb-3"
+              className="edit"
+              to={`/studies/${id}`}
               role="button"
             >
               Edit Study
             </Link>
-            <button onClick={handleDelete} type="button" className="btn btn-lg custom-button delete-btn">
+            <DeleteB onClick={handleDelete} type="button">
               Delete Study
-            </button>
-          </div>
-        </div>
-      </div>
+            </DeleteB>
+          </LinkPos>
+        </DFlex>
+      </MainWrap>
       <Footer />
-    </div>
+    </>
+  ) : (
+    <LoadingWrap>
+      <h1>Loading........</h1>
+    </LoadingWrap>
   );
 };
 
 Study.propTypes = {
-  status: PropTypes.string.isRequired,
-  fetchStudy: PropTypes.func.isRequired,
-  study: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    hours: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    hoursGoal: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    projects: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    projectsGoal: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-  }).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
+  getStudy: PropTypes.func.isRequired,
+  deleteStudy: PropTypes.func.isRequired,
+  studies: PropTypes.shape([]).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  status: state.status,
-  study: state.study,
+  studies: state.studies,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchStudy: (status, history, id) => dispatch(fetchStudy(status, history, id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Study);
+export default connect(mapStateToProps, { getStudy, deleteStudy })(withRouter(Study));

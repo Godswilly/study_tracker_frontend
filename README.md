@@ -1,6 +1,6 @@
 # Study Tracking App
 
-> This is a simple app for tracking the progress made by a user in his studies. An Authenticated user can add a study with hours, hours goal, projects, and the project's goal, and get a feedback of the progress made. The user can edit, delete or add study data to track, and get a visual representation of the data.
+> This is a simple app for tracking the progress made by a user in his studies. An Authenticated user can add a study with hours, hours goal, and get a feedback of the progress made. The user can edit, delete or add study data to track, and get a visual representation of the data.
 
 ![screenshot]()
 
@@ -29,7 +29,7 @@
 [Live Demo]()
 
 ## Backend Repo
-[Link](https://github.com/Godswilly/study_tracker.git)
+[Link](https://github.com/Godswilly/study-tracker.git)
 
 ## Getting Started
 

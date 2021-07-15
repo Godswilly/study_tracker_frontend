@@ -1,47 +1,62 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import home from '../assets/images/home.png';
 import progress from '../assets/images/progress.png';
 import studyImg from '../assets/images/add-study.png';
 import trackIt from '../assets/images/track-it.png';
 import '../assets/index.css';
 
+const FooterWrap = styled.footer`
+  height: 100px;
+  width: 100%;
+  background-color: #808080;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  text-align: center;
+  // margin-top: 90px;
+  @media(max-width: 768px) {
+    margin-top: -10px;
+  }
+`;
+
+const ImgSize = styled.img`
+  height: 40px;
+  width: 40px;
+`;
 const Footer = () => (
 
-  <footer className="footer mt-auto w-100 button-footer d-flex align-items-center">
-    <Link
-      to="/study"
-      className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between footer-btn"
-      role="button"
-    >
-      <img className="footer-img" src={studyImg} alt="add-study" />
-      <p className="mb-0">Add study</p>
-    </Link>
+  <FooterWrap>
     <Link
       to="/studies"
-      className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between footer-btn"
       role="button"
     >
-      <img className="footer-img" src={trackIt} alt="add-study" />
-      <p className="mb-0">Track.it</p>
+      <ImgSize src={studyImg} alt="addstudy" />
+      <p>Add Study</p>
     </Link>
     <Link
-      to="/progress"
-      className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between footer-btn"
+      to="/allStudies"
       role="button"
     >
-      <img className="footer-img" src={progress} alt="add-study" />
-      <p className="mb-0">Your progress</p>
+      <ImgSize src={trackIt} alt="trackit" />
+      <p>Track.it</p>
+    </Link>
+    <Link
+      to="/levels/progress"
+      role="button"
+    >
+      <ImgSize src={progress} alt="progress" />
+      <p>Your progress</p>
     </Link>
     <Link
       to="/"
-      className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between footer-btn"
       role="button"
     >
-      <img className="footer-img" src={home} alt="add-study" />
-      <p className="mb-0">Home</p>
+      <ImgSize src={home} alt="home" />
+      <p>Home</p>
     </Link>
-  </footer>
+  </FooterWrap>
 );
 
 export default Footer;

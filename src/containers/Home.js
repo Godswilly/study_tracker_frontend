@@ -1,79 +1,143 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { handleLoginStatus, handleLogout } from '../actions/index';
-import logoutIcon from '../assets/images/logout.png';
+import styled from 'styled-components';
+import { logout } from '../actions/authActions';
 import Footer from './Footer';
-import '../assets/index.css';
+import Login from '../components/auth/Login';
 
-const Home = ({
-  user, status, handleLoginStatus, handleLogout,
-}) => {
-  useEffect(() => {
-    handleLoginStatus(status);
-  }, [handleLoginStatus]);
+const MainWrap = styled.div`
+  width: 100%;
+  height: 480px;
+  background-color: #51adcf;
 
-  return (
-    <div className="h-100">
-      {
-        status === 'NOT_LOGGED_IN'
-          ? (
-            <div className="d-flex flex-column justify-content-around align-items-center login-page">
-              <div className="d-flex flex-column justify-content-center">
-                <h1 className="text-white">Studytrack.it</h1>
-              </div>
-              <div className="container d-flex flex-column justify-content-center">
-                <Link to="/login" className="btn custom-button">
-                  Login
-                </Link>
-                <Link to="/signup" className="btn custom-button">
-                  Signup
-                </Link>
-              </div>
-            </div>
-          )
-          : (
-            <div className="d-flex flex-column h-100">
-              <div className="header-title">
-                Home
-              </div>
-              <div className="user-name">
-                {user.name}
-              </div>
-              <div className="user-email">
-                {user.email}
-              </div>
-              <div className="logout-button d-flex align-items-center">
-                <img className="logout-img" src={logoutIcon} alt="logout" />
-                <button type="button" className="btn ml-3" onClick={handleLogout}>Logout</button>
-              </div>
-              <Footer />
-            </div>
-          )
-      }
-    </div>
-  );
-};
+  @media (max-width: 768px) {
+    height: 480px;
+  }
+
+`;
+
+const UserWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  height: 390px;
+  @media (max-width: 768px) {
+    height: 450px;
+  }
+
+`;
+
+const SignupWrap = styled.div`
+  margin-left: 23%;
+  margin-top: 2%;
+  position: absolute;
+  top: 300px;
+  @media(max-width: 768px) {
+    margin-left: 32%;
+`;
+
+const FormWrap = styled.div`
+  width: 60%;
+  height: 200px;
+  margin-left: 20%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
+`;
+
+const HeaderStyle = styled.div`
+  text-align: center;
+`;
+
+const FalseWrap = styled.div`
+  width: 80%;
+  height: 560px;
+  margin-left: 10%;
+`;
+
+const Bg = styled.div`
+  background-color: #51adcf;
+`;
+
+const WelcomeMsg = styled.div`
+  font-size: 26px;
+  color: white;
+`;
+
+const Name = styled.div`
+  font-size: 29px;
+  color: gray;
+`;
+
+const LogoutPos = styled.div`
+  position: absolute;
+  right: 10%;
+
+  @media(max-width: 768px) {
+    top: 10%;
+  }
+`;
+
+const LogoutBtn = styled.button`
+  background-color: red;
+  color: white;
+  border: none;
+`;
+
+const Home = ({ auth: { loggedIn, user }, logout }) => (
+  <Bg>
+    {loggedIn === false ? (
+      <FalseWrap>
+        <FormWrap>
+          <Login />
+          <SignupWrap>
+            <Link to="/signup">
+              Signup
+            </Link>
+          </SignupWrap>
+        </FormWrap>
+      </FalseWrap>
+    ) : (
+      <>
+        <MainWrap>
+          <UserWrap>
+            <HeaderStyle>
+              <WelcomeMsg>Welcome to Study-Tracker App</WelcomeMsg>
+              {/* { console.log(user.name) } */}
+              <Name>{user.name}</Name>
+              {' '}
+              !!
+            </HeaderStyle>
+            <LogoutPos>
+              <LogoutBtn type="button" onClick={logout}>Logout</LogoutBtn>
+            </LogoutPos>
+          </UserWrap>
+        </MainWrap>
+        <Footer />
+      </>
+    )}
+  </Bg>
+);
 
 Home.propTypes = {
-  status: PropTypes.string.isRequired,
-  handleLoginStatus: PropTypes.func.isRequired,
-  handleLogout: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
+  auth: PropTypes.shape({
+    loggedIn: PropTypes.bool.isRequired,
+    user: PropTypes.shape({
+      email: PropTypes.string,
+      name: PropTypes.string,
+    }).isRequired,
   }).isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  status: state.status,
-  user: state.user,
+  auth: state.auth,
+
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  handleLoginStatus: (status) => dispatch(handleLoginStatus(status)),
-  handleLogout: () => dispatch(handleLogout()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, { logout })(Home);

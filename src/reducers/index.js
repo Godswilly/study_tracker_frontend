@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
-import progress from './progress';
-import status from './status';
+import auth from './auth';
+import progressCalculations from './progressCalculations';
 import studies from './studies';
 import study from './study';
-import user from './user';
 
 export default combineReducers({
-  progress,
-  status,
-  studies,
+  auth,
   study,
-  user,
+  studies,
+  progressCalculations,
 });

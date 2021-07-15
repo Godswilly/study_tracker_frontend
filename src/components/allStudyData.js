@@ -3,8 +3,26 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
 import styled from 'styled-components';
-import progressCal from '../actions/progressAction';
-import Footer from './Footer';
+import { getStudies } from '../actions/studyAction';
+import Footer from '../containers/Footer';
+
+const H4 = styled.h4`
+  height: 550px;
+  color: white;
+
+  @media(max-width: 768px) {
+    height: 450px;
+  }
+`;
+
+const P = styled.p`
+  position: absolute;
+  left: 35%;
+
+  @media(max-width: 768px) {
+    left: 10%;
+  }
+`;
 
 const DataContent = styled.div`
   display: flex;
@@ -30,20 +48,20 @@ const DataRow = styled.div`
   }
 `;
 
-const Progress = ({ progressCal, calculations }) => {
+const AllStudy = ({ getStudies, studies }) => {
   const result = (hours, goal) => {
     if (goal === 0) {
       return 100;
     }
-    const percentage = (hours / goal) * 100;
+    const percentage = ((hours) / (goal)) * 100;
     return percentage >= 100 ? 100 : Math.round(percentage);
   };
 
   useEffect(() => {
-    progressCal();
-  }, [progressCal]);
+    getStudies();
+  }, [getStudies]);
 
-  const progList = calculations.map((study) => (
+  const allStudies = studies.studies.map((study) => (
     <div key={study.id}>
       <PieChart
         className="cSize"
@@ -55,37 +73,44 @@ const Progress = ({ progressCal, calculations }) => {
         animate
         label={({ dataEntry }) => dataEntry.key}
       />
+      <h5>
+        Study Hours:
+        {study.hours}
+        hrs
+      </h5>
+      <h5>
+        Study Hours Target:
+        {study.goal}
+        hrs
+      </h5>
     </div>
   ));
 
-  const noProgress = () => (
-    <h1>Sorry, No progress</h1>
+  const noStudyData = (
+    <H4>
+      <P>No study data yet? Kindly create one</P>
+    </H4>
   );
 
-  return calculations ? (
+  return studies.studies ? (
     <>
       <DataContent>
         <DataRow>
-          {calculations.length > 0 ? progList : noProgress}
+          {studies.studies.length > 0 ? allStudies : noStudyData}
         </DataRow>
       </DataContent>
       <Footer />
     </>
-  )
-    : (
-      <>
-        <Footer />
-      </>
-    );
+  ) : <h2>Loading........</h2>;
 };
 
-Progress.propTypes = {
-  calculations: PropTypes.instanceOf(Array).isRequired,
-  progressCal: PropTypes.func.isRequired,
+AllStudy.propTypes = {
+  getStudies: PropTypes.func.isRequired,
+  studies: PropTypes.shape([]).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  calculations: state.studies.studies,
+  studies: state.studies,
 });
 
-export default connect(mapStateToProps, { progressCal })(Progress);
+export default connect(mapStateToProps, { getStudies })(AllStudy);

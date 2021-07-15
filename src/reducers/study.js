@@ -1,15 +1,26 @@
-import * as types from '../constants/actionTypes';
+import { GET_STUDY, ADD_STUDY } from '../constants/actionTypes';
 
 const initialState = {
-  name: '', hours: 0, hoursGoal: 0, projects: 0, projectsGoal: 0, createErrors: '', userId: 0,
+  study: [],
+  loading: false,
 };
 
-export default (state = initialState, action) => {
-  const key = action.name;
+// eslint-disable-next-line
+export default function (state = initialState, action) {
   switch (action.type) {
-    case types.CREATE_STUDY:
-      return { ...state, [key]: action.data };
+    case GET_STUDY:
+      return {
+        ...state,
+        study: action.payload,
+        loading: false,
+      };
+    case ADD_STUDY:
+      return {
+        ...state,
+        study: [action.payload, ...state.study || {}],
+        loading: false,
+      };
     default:
       return state;
   }
-};
+}

@@ -1,90 +1,155 @@
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import { submitLogin, updateData } from '../../actions/index';
-import '../../assets/index.css';
+import { Redirect } from 'react-router-dom';
+import styled from 'styled-components';
+import { login } from '../../actions/authActions';
 
-const Login = ({ user, updateData, submitLogin }) => {
-  const history = useHistory();
+const LogInWrap = styled.div`
+  width: 50%;
+  height: 540px;
+  margin-left: 25%;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  background-color: #51adcf;
 
-  const updateDataChange = useCallback((e) => {
-    updateData(e.target.name, e.target.value);
-  }, [updateData]);
 
-  const handleSubmit = (e) => {
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 100%;
+  }
+`;
+
+const EmailWrap = styled.div`
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+`;
+
+const PasswordWrap = styled.div`
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+`;
+
+const ButtonWrap = styled.div`
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+`;
+
+const FormWrap = styled.form`
+  width: 100%;
+  height: 300px;
+`;
+
+const EmailInp = styled.input`
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 0;
+
+  &:focus {
+    color: blue;
+  }
+`;
+
+const PasswordInp = styled.input`
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 0;
+
+  &:focus {
+    color: blue;
+  }
+`;
+
+const LoginBtn = styled.button`
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: #1f3c88;
+  color: white;
+  border: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Login = ({ login, authenticated: { loggedIn } }) => {
+  const [loginData, setloginData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = loginData;
+
+  const handleChange = (e) => setloginData({ ...loginData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    submitLogin(history, user);
+    login({ email, password });
   };
 
+  if (loggedIn) {
+    return <Redirect to="/" />;
+  }
+
   return (
-    <div className="d-flex flex-column justify-content-around align-items-center login-page">
-      <div className="row">
-        <div>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="userEmail">
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  id="userEmail"
-                  placeholder="E-mail"
-                  className="form-control"
-                  autoComplete="email"
-                  required
-                  onChange={updateDataChange}
-                />
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="userPassword">
-                Password
-                <input
-                  type="password"
-                  name="password"
-                  id="userPassword"
-                  placeholder="Password"
-                  className="form-control"
-                  autoComplete="new-password"
-                  required
-                  onChange={updateDataChange}
-                />
-              </label>
-              <small className="form-text text-muted">
-                At least 6 characters
-              </small>
-            </div>
-            <div>
-              <h4 className="red-error">{user.loginErrors}</h4>
-            </div>
-            <button type="submit" className="btn custom-button mt-3">
-              Login
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <LogInWrap>
+      <FormWrap onSubmit={handleSubmit}>
+        <EmailWrap>
+          <EmailInp
+            type="email"
+            onChange={handleChange}
+            value={email}
+            placeholder="Enter your email"
+            name="email"
+            required
+          />
+        </EmailWrap>
+        <PasswordWrap>
+          <PasswordInp
+            type="password"
+            onChange={handleChange}
+            value={password}
+            placeholder="Enter your password"
+            name="password"
+            required
+          />
+        </PasswordWrap>
+        <ButtonWrap>
+          <LoginBtn type="submit" onSubmit={handleSubmit}>Login</LoginBtn>
+        </ButtonWrap>
+      </FormWrap>
+    </LogInWrap>
   );
 };
 
 Login.propTypes = {
-  user: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    loginErrors: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+  authenticated: PropTypes.shape({
+    loggedIn: PropTypes.bool.isRequired,
   }).isRequired,
-  updateData: PropTypes.func.isRequired,
-  submitLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  authenticated: state.auth,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  updateData: (name, data) => dispatch(updateData(name, data)),
-  submitLogin: (history, user) => dispatch(submitLogin(history, user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, { login })(Login);
