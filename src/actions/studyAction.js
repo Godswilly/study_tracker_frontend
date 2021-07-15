@@ -5,7 +5,7 @@ import {
   STUDIES_ERRORS,
 } from '../constants/actionTypes';
 
-const defaultURL = 'http://localhost:3001/api/v1'; // development
+const defaultURL = 'http://localhost:3000/api/v1'; // development
 // const defaultURL = 'https://pure-stream-80472.herokuapp.com'; // production
 
 const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
@@ -14,7 +14,7 @@ const addStudies = (studyData) => async (dispatch) => {
   const apiConfig = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
       'Access-Control-Allow-Origin': '*',
