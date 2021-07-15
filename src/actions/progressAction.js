@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { PROGRESS_CALCULATION, STUDIES_ERRORS } from '../constants/actionTypes';
 
-// const defaultURL = 'http://localhost:3001/api/v1'; // development
+const defaultURL = 'http://localhost:3001/api/v1'; // development
 
-const defaultURL = 'https://pure-stream-80472.herokuapp.com'; // production
+// const defaultURL = 'https://pure-stream-80472.herokuapp.com'; // production
 
 const apiConfig = {
   headers: {
