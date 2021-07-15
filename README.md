@@ -2,9 +2,7 @@
 
 > This is a simple app for tracking the progress made by a user in his studies. An Authenticated user can add a study with hours, hours goal, and get a feedback of the progress made. The user can edit, delete or add study data to track, and get a visual representation of the data.
 
-![screenshot]()
-
-![screenshot]()
+![screenshot](src/assets/images/Trackit.png)
 
 ## Built With
 
