@@ -3,7 +3,7 @@ import setAuthToken from '../helpers/setAuthToken';
 import { AUTH_FAIL } from '../constants/actionTypes';
 
 // const defaultUrl = 'http://localhost:3001/api/v1'; // development
-const defaultUrl = 'https://pure-stream-80472.herokuapp.com'; //production
+const defaultUrl = 'https://pure-stream-80472.herokuapp.com'; // production
 
 const setUser = (payload) => ({ type: 'SET_USER', payload });
 // eslint-disable-next-line no-unused-vars

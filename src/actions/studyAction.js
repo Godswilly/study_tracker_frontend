@@ -6,7 +6,7 @@ import {
 } from '../constants/actionTypes';
 
 // const defaultURL = 'http://localhost:3001/api/v1'; // development
-const defaultURL = 'https://pure-stream-80472.herokuapp.com'; //production
+const defaultURL = 'https://pure-stream-80472.herokuapp.com'; // production
 
 const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
 // eslint-disable-next-line consistent-return
