@@ -26,7 +26,7 @@
 - React-Router
 
 # Live Demo
-[Live Demo]()
+[Live Demo](https://studies-tracker.netlify.app)
 
 ## Backend Repo
 [Link](https://github.com/Godswilly/study-tracker.git)
