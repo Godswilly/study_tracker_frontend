@@ -11,6 +11,7 @@ const apiConfig = {
     Accept: 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,
     'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': '*',
   },
 };
 // eslint-disable-next-line consistent-return

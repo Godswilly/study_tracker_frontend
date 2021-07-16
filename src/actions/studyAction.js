@@ -18,6 +18,7 @@ const addStudies = (studyData) => async (dispatch) => {
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
     },
   };
 
@@ -47,6 +48,7 @@ const getStudy = (id) => async (dispatch) => { // index page
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
     },
   };
   try {
@@ -72,6 +74,7 @@ const getStudies = () => async (dispatch) => {
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
     },
   };
   try {
@@ -98,6 +101,7 @@ const updateStudy = (id, study) => async (dispatch) => {
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
     },
     body: JSON.stringify(study),
   };
@@ -124,6 +128,7 @@ const deleteStudy = (id) => async (dispatch) => {
       Accept: 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
     },
   };
   try {
