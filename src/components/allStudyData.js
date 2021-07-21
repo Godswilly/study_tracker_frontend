@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
 import styled from 'styled-components';
-import { getStudies } from '../actions/studyAction';
+import { getStudies } from '../actions/index';
 import Footer from '../containers/Footer';
 
 const H4 = styled.h4`
@@ -50,7 +50,7 @@ const DataRow = styled.div`
 
 const AllStudy = ({ getStudies, studies }) => {
   const result = (hours, goal) => {
-    if (goal === 0) {
+    if (hours + hours === goal) {
       return 100;
     }
     const percentage = ((hours) / (goal)) * 100;

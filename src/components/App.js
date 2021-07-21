@@ -11,7 +11,7 @@ import Progress from '../containers/Progress';
 import Header from '../containers/Header';
 import Signup from './auth/Signup';
 import setAuthToken from '../helpers/setAuthToken';
-import loadUser from '../actions/authActions';
+import { loadUser } from '../actions/index';
 import store from '../store';
 import AllStudy from './allStudyData';
 import '../assets/index.css';

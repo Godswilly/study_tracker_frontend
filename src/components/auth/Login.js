@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { login } from '../../actions/authActions';
+import { login } from '../../actions/index';
 
 const LogInWrap = styled.div`
   width: 50%;

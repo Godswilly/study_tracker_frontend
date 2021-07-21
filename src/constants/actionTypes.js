@@ -11,3 +11,4 @@ export const LOGOUT = 'LOGOUT';
 export const ADD_STUDY = 'ADD_STUDY';
 export const DELETE_STUDY = 'DELETE_STUDY';
 export const AUTH_FAIL = 'AUTH_FAIL';
+export const LOADING = 'LOADING';

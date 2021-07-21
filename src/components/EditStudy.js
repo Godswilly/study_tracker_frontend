@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getStudy, updateStudy } from '../actions/studyAction';
+import { getStudy, updateStudy } from '../actions/index';
 
 const EditStudy = ({
   getStudy, match, updateStudy, history, study,

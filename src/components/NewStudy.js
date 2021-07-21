@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { addStudies } from '../actions/studyAction';
+import { addStudies } from '../actions/index';
 import Footer from '../containers/Footer';
 
 const AddWrap = styled.div`

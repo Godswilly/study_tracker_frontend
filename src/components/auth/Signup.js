@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { signup } from '../../actions/authActions';
+import { signup } from '../../actions/index';
 
 const RegFormWrap = styled.div`
   width: 100%;

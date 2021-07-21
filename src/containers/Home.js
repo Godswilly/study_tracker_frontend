@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { logout } from '../actions/authActions';
+import { logout } from '../actions/index';
 import Footer from './Footer';
 import Login from '../components/auth/Login';
 

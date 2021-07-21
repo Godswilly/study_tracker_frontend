@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { PieChart } from 'react-minimal-pie-chart';
 import styled from 'styled-components';
 import Footer from '../containers/Footer';
-import { getStudy, deleteStudy } from '../actions/studyAction';
+import { getStudy, deleteStudy } from '../actions/index';
 
 const MainWrap = styled.div`
   width: 100%;
@@ -101,7 +101,7 @@ const Study = ({
           </ChartPos>
           <LinkPos>
             <Link to="/studies">
-              Back to Data
+              Back to Study
             </Link>
             <Link
               className="edit"

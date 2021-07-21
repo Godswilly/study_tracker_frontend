@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
 import styled from 'styled-components';
-import progressCal from '../actions/progressAction';
+import { progressCal } from '../actions/index';
 import Footer from './Footer';
 
 const DataContent = styled.div`
