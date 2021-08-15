@@ -17,6 +17,9 @@ const EditStudy = ({
 
   const { id } = match.params;
   useEffect(() => {
+    if (!(localStorage.token)) {
+      history.push('/login');
+    }
     getStudy(id);
     setFormData({
       hours: !study.hours ? '' : study.hours,

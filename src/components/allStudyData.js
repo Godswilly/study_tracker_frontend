@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
 import styled from 'styled-components';
@@ -49,6 +50,7 @@ const DataRow = styled.div`
 `;
 
 const AllStudy = ({ getStudies, studies }) => {
+  const history = useHistory();
   const result = (hours, goal) => {
     if (hours + hours === goal) {
       return 100;
@@ -58,6 +60,9 @@ const AllStudy = ({ getStudies, studies }) => {
   };
 
   useEffect(() => {
+    if (!(localStorage.token)) {
+      history.push('/login');
+    }
     getStudies();
   }, [getStudies]);
 

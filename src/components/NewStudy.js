@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -107,6 +107,12 @@ const NewStudy = ({ addStudies }) => {
     hours, goal,
   } = formData;
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  useEffect(() => {
+    if (!(localStorage.token)) {
+      history.push('/login');
+    }
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();

@@ -10,7 +10,6 @@ import Study from './Study';
 import Progress from '../containers/Progress';
 import Header from '../containers/Header';
 import Signup from './auth/Signup';
-import setAuthToken from '../helpers/setAuthToken';
 import { loadUser } from '../actions/index';
 import store from '../store';
 import AllStudy from './allStudyData';
@@ -20,14 +19,14 @@ const AppWrap = styled.div`
   width: 100%;
   height: 570px;
 `;
-
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+const setLogin = () => ({ type: 'SET_LOGIN' });
 
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
+    if (localStorage.token) {
+      store.dispatch(setLogin());
+    }
   }, []);
 
   return (

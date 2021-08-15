@@ -2,7 +2,7 @@
 import axios from 'axios';
 import setAuthToken from '../helpers/setAuthToken';
 import {
-  AUTH_FAIL, PROGRESS_CALCULATION,
+  PROGRESS_CALCULATION,
   GET_STUDIES, GET_STUDY, DELETE_STUDY, ADD_STUDY, UPDATE_STUDY,
   STUDIES_ERRORS,
 } from '../constants/actionTypes';
@@ -11,12 +11,21 @@ import {
 const defaultUrl = 'https://pure-stream-80472.herokuapp.com/api/v1'; // production
 
 const setUser = (payload) => ({ type: 'SET_USER', payload });
+const authFail = (payload) => ({ type: 'AUTH_FAIL', payload });
+
 // eslint-disable-next-line no-unused-vars
 const loadUser = () => async (dispatch) => {
   if (localStorage.auth_token) {
     setAuthToken(localStorage.auth_token);
   }
 };
+
+const setMyError = (error = '') => (dispatch) => {
+  dispatch(authFail({
+    error: error === '' ? '' : error.response.data,
+  }));
+};
+
 // eslint-disable-next-line consistent-return
 export const signup = (userDetails) => async (dispatch) => {
   const apiConfig = {
@@ -24,7 +33,7 @@ export const signup = (userDetails) => async (dispatch) => {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      // Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': '*',
     },
@@ -38,10 +47,9 @@ export const signup = (userDetails) => async (dispatch) => {
     dispatch(setUser({ loggedIn: true, user: data.data.user }));
     return data.data;
   } catch (error) {
-    dispatch({
-      type: AUTH_FAIL,
-      payload: error,
-    });
+    dispatch(authFail({
+      error: error.response.data,
+    }));
   }
 };
 // eslint-disable-next-line consistent-return
@@ -65,10 +73,9 @@ export const login = (userDetails) => async (dispatch) => {
     dispatch(setUser({ loggedIn: true, user: data.data.user }));
     return data.data;
   } catch (error) {
-    dispatch({
-      type: AUTH_FAIL,
-      payload: error,
-    });
+    dispatch(authFail({
+      error: error.response.data,
+    }));
   }
 };
 
@@ -83,7 +90,6 @@ const apiConfig = {
     'Access-Control-Allow-Headers': '*',
   },
 };
-
 // eslint-disable-next-line consistent-return
 const progressCal = () => async (dispatch) => {
   try {
@@ -171,13 +177,12 @@ const getStudies = () => async (dispatch) => {
     },
   };
   try {
-    const allStudies = await axios.get(`${defaultUrl}/allStudies`, apiConfig);
-
+    const studies = await axios.get(`${defaultUrl}/studies`, apiConfig);
     dispatch({
       type: GET_STUDIES,
-      payload: allStudies.data,
+      payload: studies.data,
     });
-    return allStudies.data;
+    return studies.data;
   } catch (error) {
     dispatch({
       type: STUDIES_ERRORS,
@@ -242,5 +247,13 @@ const deleteStudy = (id) => async (dispatch) => {
 };
 
 export {
-  addStudies, getStudy, getStudies, updateStudy, deleteStudy, loadUser, progressCal,
+  addStudies,
+  getStudy,
+  getStudies,
+  updateStudy,
+  deleteStudy,
+  setMyError,
+  authFail,
+  loadUser,
+  progressCal,
 };

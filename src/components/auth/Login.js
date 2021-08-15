@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { login } from '../../actions/index';
+import { login, setMyError } from '../../actions/index';
 
 const LogInWrap = styled.div`
-  width: 50%;
-  height: 540px;
-  margin-left: 25%;
+  width: 100%;
+  height: 560px;
   display: flex;
   flex-direction: row;
   padding: 20px;
   background-color: #51adcf;
-
 
   @media (max-width: 768px) {
     margin-left: 0;
@@ -22,31 +20,37 @@ const LogInWrap = styled.div`
 `;
 
 const EmailWrap = styled.div`
-  width: 100%;
+  width: 60%;
+  margin-left: 50%;
 
   @media (max-width: 768px) {
-    margin-left: 0;
+    margin-left: 30%;
+    width: 100%;
   }
 `;
 
 const PasswordWrap = styled.div`
-  width: 100%;
+  width: 60%;
+  margin-left: 50%;
 
   @media (max-width: 768px) {
-    margin-left: 0;
+    margin-left: 30%;
+    width: 100%;
   }
 `;
 
 const ButtonWrap = styled.div`
-  width: 100%;
+  width: 60%;
+  margin-left: 50%;
 
   @media (max-width: 768px) {
-    margin-left: 0;
+    margin-left: 0%;
+    width: 100%;
   }
 `;
 
 const FormWrap = styled.form`
-  width: 100%;
+  width: 60%;
   height: 300px;
 `;
 
@@ -76,6 +80,16 @@ const PasswordInp = styled.input`
   }
 `;
 
+const SignupWrap = styled.div`
+  margin-left: 45%;
+  margin-top: 2%;
+  position: absolute;
+  top: 300px;
+  @media(max-width: 768px) {
+    margin-left: 32%;
+    }
+`;
+
 const LoginBtn = styled.button`
   width: 100%;
   padding: 12px 20px;
@@ -89,13 +103,20 @@ const LoginBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
+  @media(max-width: 768px) {
+    margin-left: 30%;
+    }
 `;
 
-const Login = ({ login, authenticated: { loggedIn } }) => {
+const Login = ({ login, setMyError, authenticated: { loggedIn, error } }) => {
   const [loginData, setloginData] = useState({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    setMyError('');
+  }, []);
 
   const { email, password } = loginData;
 
@@ -103,7 +124,7 @@ const Login = ({ login, authenticated: { loggedIn } }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    login({ email, password });
+    login(loginData);
   };
 
   if (loggedIn) {
@@ -112,7 +133,7 @@ const Login = ({ login, authenticated: { loggedIn } }) => {
 
   return (
     <LogInWrap>
-      <FormWrap onSubmit={handleSubmit}>
+      <FormWrap>
         <EmailWrap>
           <EmailInp
             type="email"
@@ -134,17 +155,25 @@ const Login = ({ login, authenticated: { loggedIn } }) => {
           />
         </PasswordWrap>
         <ButtonWrap>
-          <LoginBtn type="submit" onSubmit={handleSubmit}>Login</LoginBtn>
+          <LoginBtn type="submit" onClick={handleSubmit}>Login</LoginBtn>
         </ButtonWrap>
+        { error === '' ? '' : <h6 className="text-danger">{error.error.user_authentication}</h6>}
       </FormWrap>
+      <SignupWrap>
+        <Link to="/signup">
+          Signup
+        </Link>
+      </SignupWrap>
     </LogInWrap>
   );
 };
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  setMyError: PropTypes.func.isRequired,
   authenticated: PropTypes.shape({
     loggedIn: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -152,4 +181,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.auth,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, setMyError })(Login);

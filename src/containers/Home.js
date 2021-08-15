@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { logout } from '../actions/index';
 import Footer from './Footer';
-import Login from '../components/auth/Login';
 
 const MainWrap = styled.div`
   width: 100%;
@@ -30,34 +29,8 @@ const UserWrap = styled.div`
 
 `;
 
-const SignupWrap = styled.div`
-  margin-left: 23%;
-  margin-top: 2%;
-  position: absolute;
-  top: 300px;
-  @media(max-width: 768px) {
-    margin-left: 32%;
-`;
-
-const FormWrap = styled.div`
-  width: 60%;
-  height: 200px;
-  margin-left: 20%;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-left: 0;
-  }
-`;
-
 const HeaderStyle = styled.div`
   text-align: center;
-`;
-
-const FalseWrap = styled.div`
-  width: 80%;
-  height: 560px;
-  margin-left: 10%;
 `;
 
 const Bg = styled.div`
@@ -89,40 +62,40 @@ const LogoutBtn = styled.button`
   border: none;
 `;
 
-const Home = ({ auth: { loggedIn, user }, logout }) => (
-  <Bg>
-    {loggedIn === false ? (
-      <FalseWrap>
-        <FormWrap>
-          <Login />
-          <SignupWrap>
-            <Link to="/signup">
-              Signup
-            </Link>
-          </SignupWrap>
-        </FormWrap>
-      </FalseWrap>
-    ) : (
+const Home = ({ auth: { user }, logout }) => {
+  const history = useHistory();
+
+  const handleLogout = () => {
+    logout();
+    history.push('/login');
+  };
+  useEffect(() => {
+    if (!(localStorage.token)) {
+      history.push('/login');
+    }
+  }, []);
+
+  return (
+    <Bg>
       <>
         <MainWrap>
           <UserWrap>
             <HeaderStyle>
               <WelcomeMsg>Welcome to Study-Tracker App</WelcomeMsg>
-              {/* { console.log(user.name) } */}
               <Name>{user.name}</Name>
               {' '}
               !!
             </HeaderStyle>
             <LogoutPos>
-              <LogoutBtn type="button" onClick={logout}>Logout</LogoutBtn>
+              <LogoutBtn type="button" onClick={handleLogout}>Logout</LogoutBtn>
             </LogoutPos>
           </UserWrap>
         </MainWrap>
         <Footer />
       </>
-    )}
-  </Bg>
-);
+    </Bg>
+  );
+};
 
 Home.propTypes = {
   auth: PropTypes.shape({

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
 import styled from 'styled-components';
@@ -31,6 +32,7 @@ const DataRow = styled.div`
 `;
 
 const Progress = ({ progressCal, calculations }) => {
+  const history = useHistory();
   const result = (hours, goal) => {
     if (goal === 0) {
       return 100;
@@ -40,6 +42,9 @@ const Progress = ({ progressCal, calculations }) => {
   };
 
   useEffect(() => {
+    if (!(localStorage.token)) {
+      history.push('/login');
+    }
     progressCal();
   }, [progressCal]);
 

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { signup } from '../../actions/index';
+import { signup, setMyError } from '../../actions/index';
 
 const RegFormWrap = styled.div`
   width: 100%;
@@ -29,7 +29,7 @@ const NameWrap = styled.div`
 `;
 
 const EmailWrap = styled.div`
-  width: 100%;
+  width: 60%;
 
   @media (max-width: 768px) {
     width: 90%;
@@ -38,7 +38,7 @@ const EmailWrap = styled.div`
 `;
 
 const PasswordWrap = styled.div`
-  width: 100%;
+  width: 60%;
 
   @media (max-width: 768px) {
     width: 90%;
@@ -47,7 +47,7 @@ const PasswordWrap = styled.div`
 `;
 
 const ButtonWrap = styled.button`
-  width: 50%;
+  width: 78%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -125,12 +125,16 @@ const CenterLink = styled.div`
   }
 `;
 
-const SignUp = ({ signup, authenticated: { loggedIn } }) => {
+const SignUp = ({ signup, setMyError, authenticated: { loggedIn, error } }) => {
   const [signupData, setSignupData] = useState({
     name: '',
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    setMyError('');
+  }, []);
 
   const { name, email, password } = signupData;
 
@@ -147,7 +151,7 @@ const SignUp = ({ signup, authenticated: { loggedIn } }) => {
 
   return (
     <RegFormWrap>
-      <FormWrap onSubmit={handleSubmit}>
+      <FormWrap>
         <NameWrap>
           <NameInp
             type="text"
@@ -188,6 +192,12 @@ const SignUp = ({ signup, authenticated: { loggedIn } }) => {
             Login
           </Link>
         </CenterLink>
+        { error === '' ? '' : Object.entries(error.error).map((entry) => (
+          <h6 key={entry.id} className="text-danger">
+            {entry[0]}
+            {entry[1]}
+          </h6>
+        ))}
       </FormWrap>
     </RegFormWrap>
   );
@@ -195,8 +205,10 @@ const SignUp = ({ signup, authenticated: { loggedIn } }) => {
 
 SignUp.propTypes = {
   signup: PropTypes.func.isRequired,
+  setMyError: PropTypes.func.isRequired,
   authenticated: PropTypes.shape({
     loggedIn: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -204,4 +216,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.auth,
 });
 
-export default connect(mapStateToProps, { signup })(SignUp);
+export default connect(mapStateToProps, { signup, setMyError })(SignUp);

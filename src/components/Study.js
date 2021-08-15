@@ -65,6 +65,9 @@ const Study = ({
 }) => {
   const { id } = match.params;
   useEffect(() => {
+    if (!(localStorage.token)) {
+      history.push('/login');
+    }
     getStudy(id);
   }, [getStudy, id]);
 
