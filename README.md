@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Study Tracking App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> This is a simple app for tracking the progress made by a user in his studies. An Authenticated user can add a study with hours, hours goal, and get a feedback of the progress made. The user can edit, delete or add study data to track, and get a visual representation of the data.
 
-## Available Scripts
+![screenshot](src/assets/images/Trackit.png)
 
-In the project directory, you can run:
+## Built With
 
-### `yarn start`
+- Node.js
+- React
+- React-DOM
+- React-Create-App
+- npm
+- Jest
+- Redux
+- React-Redux
+- Redux-thunk
+- Axios
+- React-Minimal-Pie-Chart
+- React-Router
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Live Demo
+[Live Demo](https://studies-tracker.netlify.app)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Backend Repo
+[Link](https://github.com/Godswilly/study-tracker.git)
 
-### `yarn test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To get a local copy up and running, follow these simple steps.
 
-### `yarn build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- node.js must be installed on your device
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Follow the steps below:
 
-### `yarn eject`
+1. Clone the repo
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```sh
+git clone https://github.com/Godswilly/study_tracker_frontend.git
+```
+2. Change directory 
+```sh
+cd study_tracker_frontend
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Install dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```sh
+yarn install
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. Start the project
 
-## Learn More
+```sh
+yarn start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## To run test
+```sh
+yarn test
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Author
 
-### Code Splitting
+👤 **Kalu Agu Kalu**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [Github](https://github.com/Godswilly)
+- [Twitter](https://twitter.com/KaluAguKalu17)
+- [Linkedin](https://www.linkedin.com/in/kaluagukalu/)
 
-### Analyzing the Bundle Size
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Contributions, issues, and feature requests are welcome!
 
-### Making a Progressive Web App
+Feel free to check the [issues page](https://github.com/Godswilly/study_tracker_frontend/issues).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. [Fork it](https://github.com/Godswilly/study_tracker_frontend/fork)
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
 
-### Advanced Configuration
+## Show your support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Give and ⭐️ if you like this project!
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Acknowledgments
 
-### `yarn build` fails to minify
+- [Microverse](https://www.microverse.org/)
+- [Project requirements](https://www.notion.so/Final-Capstone-Project-Tracking-App-22e454da738c46efaf17721826841772)
+- Design idea by <a href="https://www.behance.net/gallery/13271423/Bodytrackit-An-iOs-app-Branding-UX-and-UI" target="_blank">Gregoire Vella on Behance</a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📝 License
+
+This project is [Apache](lic.url) licensed.
